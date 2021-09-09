@@ -1,0 +1,39 @@
+[
+    {
+        "index": 1,
+        "component": "MainView",
+        "pathDescription": "Vender",
+        "path": "/"
+    },
+    {
+        "index": 2,
+        "component": "StepperView",
+        "pathDescription": "Datos del Cliente",
+        "path": "/datos-cliente"
+    },
+    {
+        "index": 3,
+        "component": "ApartmentView",
+        "pathDescription": "Datos del apartamento",
+        "path": "/direccion-apartamento"
+    },
+    {
+        "index": 4,
+        "component": "PrecioView",
+        "pathDescription": "Introduce el precio",
+        "path": "/apartamento-precio"
+    },
+    {
+        "index": 5,
+        "component": "ClienteView",
+        "pathDescription": "Fotos del apartamento",
+        "path": "/fotos-apartamento"
+    },
+    {
+        "index": 6,
+        "component": "ResumeView",
+        "pathDescription": "Resumen",
+        "path": "/resumen"
+    }
+
+]

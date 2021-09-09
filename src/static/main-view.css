@@ -1,0 +1,89 @@
+.main-view {
+    background-image: url('https://uploads-ssl.webflow.com/60d63632c7f94fb5153fd45b/6102d75d5cf18ae632a74ae1_bg_tuhabi.jpg');
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-size: cover;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+    padding: 50px 3% 80px;
+}
+
+.main-view-1 {
+    display: block;
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding-right: 3em;
+    padding-left: 3em;
+    text-align: left;
+}
+
+.main-view-2 {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    grid-column-gap: 32px;
+    grid-row-gap: 32px;
+    -ms-grid-columns: 2fr 1fr;
+    grid-template-columns: 2fr 1fr;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
+
+.main-view h1 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-family: Mulish,sans-serif;
+    color: #121f3e;
+    font-size: 4em;
+    line-height: 1.1;
+    font-weight: 900;
+    text-align: left;
+    letter-spacing: -.03em;
+    
+}
+
+.main-view a {
+    width: 50%;
+    margin-top: 2em;
+    -webkit-transition: .2s,-webkit-transform .2s;
+    transition: transform .2s,.2s,-webkit-transform .2s;
+    font-family: 'Open Sans',sans-serif;
+    font-weight: 400;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 20px 38px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #7c01ff;
+    box-shadow: 8px 18px 25px -25px rgb(52 84 209 / 35%);
+    -webkit-transition: .2s;
+    transition: .2s;
+    color: #ebeefa;
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
