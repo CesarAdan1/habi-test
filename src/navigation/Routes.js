@@ -1,6 +1,8 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom';
-import paths from '../utils/paths.json'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Component } from 'react/cjs/react.production.min';
+import routes from '../utils/paths.json'
 import {
     MainView, Step1,
     Step2,
@@ -11,7 +13,6 @@ import {
     Step7,
     Step8, Step9, ResumeView
 } from '../views'
-import StepperView from '../views/StepperView';
 
 const componentRegistry = {
     "MainView": MainView,
@@ -28,30 +29,30 @@ const componentRegistry = {
 }
 
 const Routes = (props) => {
-    console.log(props)
+    const history = useHistory()
+    //const [routes, setRoutes] = useState([])
     return (
         <Switch>
-            <Suspense fallback={<div>Loading...</div>}>
-                <Route exact path="/" component={MainView} />
+            <Suspense fallback={<div className="center-load">Loading...</div>}>
+               <Route exact path="/" component={MainView} />
                 <Route exact path="/datos-cliente" component={Step1} />
                 <Route exact path="/datos-cliente-email" component={Step2} />
-                <Route exact path="/direccion-apartament" component={Step3} />
+                <Route exact path="/direccion-apartamento" component={Step3} />
                 <Route exact path="/apartamento-piso" component={Step4} />
                 <Route exact path="/apartamento-servicios" component={Step5} />
                 <Route exact path="/apartamento-park" component={Step6} />
                 <Route exact path="/apartamento-precio" component={Step7} />
                 <Route exact path="/fotos-apartamento" component={Step8} />
                 <Route exact path="/apartamento-elevator" component={Step9} />
-                <Route exact path="/resumen" component={ResumeView} />
-               {/*  {
-                    paths.map((path) => {
+                <Route exact path="/resumen" component={ResumeView} /> 
+            {
+                    routes.map(({path, component: Component}) => {
                         <Route key={path.index}
-                            component={componentRegistry[path.component]}
-                            exact path={`${path.path}`} >
-
+                            render={props => <Component {...props}/>}
+                            exact path={path.path} >
                         </Route>
                     })
-                } */}
+                } 
             </Suspense>
         </Switch>
 

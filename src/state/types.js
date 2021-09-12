@@ -1,0 +1,10 @@
+export const SAVE_NAME = 'SAVE_NAME';
+export const SAVE_EMAIL = 'SAVE_EMAIL';
+export const SAVE_ADDRESS = 'SAVE_ADDRESS';
+export const SAVE_FLOOR = 'SAVE_FLOOR';
+export const SAVE_SERVICES = 'SAVE_SERVICES';
+export const SAVE_PARK = 'SAVE_PARK';
+export const SAVE_PRICE = 'SAVE_PRICE';
+export const SAVE_PHOTO = 'SAVE_PHOTO';
+export const SAVE_ELEVATOR = 'SAVE_ELEVATOR';
+export const SUBMIT_FORM = 'SUBMIT_FORM';

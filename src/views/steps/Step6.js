@@ -1,37 +1,79 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 import FormContainer from '../../containers/FormContainer';
 import ViewContainer from '../../containers/ViewContainer';
-import ButtonComponent from '../../components/ButtonComponent'
-import InputComponent, { Dropdown } from '../../components/InputComponent'
+import InputComponent from '../../components/InputComponent'
+import AppContext from '../../state/AppContext'
+import StepComponent from '../../components/StepComponent';
+import { useHistory } from 'react-router';
+
+export let storage = {
+    park: false,
+    isCover: false
+}
 
 
-const Step6 = ({setForm, formData, navigation}) => {
-    const { previous, next } = navigation;
-    const { park } = formData;
+const Step6 = () => {
+    const history = useHistory();
+    const [park, setPark] = useState(storage.park);
+    const [isCover, setIsPark] = useState(storage.isCover);
+    const [showOption, setShowOption] = useState(park);
+    const [valid, setValid] = useState(Boolean(park));
+    const parkInput = useRef(null);
+    const isCoverInput = useRef(null);
+
+    const handleInput = (park, value) => {
+        if (park) {
+            setPark(value);
+            setShowOption(park)
+        }
+        storage = { ...storage, [park]: value };
+    };
+
+    const handleSubmit = (e) => {
+        if (e) {
+            e.preventDefault();
+        }
+
+        if (!valid) {
+            alert("Introduce un email valido");
+            return;
+        }
+
+        history.push("/apartamento-precio");
+    };
+
 
     return (
         <ViewContainer>
-            <FormContainer>
-                <h3>En que piso se encuentra tu apartamento</h3>
-                <InputComponent
-                    label="Numero de Pisos"
-                    name="park"
-                    value={park}
-                    onChange={setForm}
-                />
-                <div className="w3-bar">
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={previous}
-                        text="Adicionales 2 "
-                    />
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={next}
-                        text="Precio"
-                    />
+            <StepComponent
+                pathBefore={"/apartamento-servicios"}
+                pathAfter={"apartamento-precio"}
+                current={6} prevDisabled={false} nextDisabled={!valid} />
+            <FormContainer onSubmit={handleSubmit}>
+                <h3>Tu apartamento cuenta con estacionamiento?</h3>
+                <div>
+                    <div className="ans-ew">
+                        <InputComponent
+                            required
+                            type="checkbox"
+                            ref={isCoverInput}
+                            label="Si"
+                            id="isCover"
+                            name="isCover"
+                            value={isCover}
+                            onChange={(e) => handleInput("isCover", ...e.currentTarget.value)}
+                        />
+                        <InputComponent
+                            required
+                            type="checkbox"
+                            ref={isCoverInput}
+                            label="No"
+                            id="isCover"
+                            name="isCover"
+                            value={isCover}
+                            onChange={(e) => handleInput("isCover", ...e.currentTarget.value)}
+                        />
+                    </div>
                 </div>
             </FormContainer>
 

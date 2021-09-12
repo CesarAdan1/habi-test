@@ -60,13 +60,13 @@
         "path": "/apartamento-elevator"
     },
     {
-        "index": 9,
+        "index": 10,
         "component": "ResumeView",
         "pathDescription": "Resumen",
         "path": "/resumen"
     },
     {
-        "index": 10,
+        "index": 11,
         "component": "SubmitView",
         "pathDescription": "Enviar",
         "path": "/submit"

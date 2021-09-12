@@ -1,37 +1,69 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 import FormContainer from '../../containers/FormContainer';
 import ViewContainer from '../../containers/ViewContainer';
-import ButtonComponent from '../../components/ButtonComponent'
 import InputComponent from '../../components/InputComponent'
+import AppContext from '../../state/AppContext'
+import { useHistory } from 'react-router';
+import StepComponent from '../../components/StepComponent';
 
-const Step3 = ({ setForm, formData, navigation }) => {
-    const { previous, next } = navigation;
-    const { address } = formData;
+export let storage = {
+    address: ""
+}
+
+export const validateAddress = (address) => address.length > 0;
+
+const Step3 = () => {
+    const history = useHistory
+    const [address, setAddress] = useState(storage.address);
+    const [valid, setValid] = useState(Boolean(validateAddress(address)));
+    const addressInput = useRef(null);
+
+    useEffect(() => {
+        setValid(Boolean(validateAddress(address)))
+    }, [address]);
+
+    const handleInput = (address, value) => {
+        if (address === "address") {
+          setAddress(value);
+        }
+        storage = { ...storage, [address]: value };
+      };
+
+      const handleSubmit = (e) => {
+        if (e) {
+          e.preventDefault();
+        }
+    
+        if (!valid) {
+          alert("Introduce una direccion valida");
+          return;
+        }
+    
+        history.push("/apartamento-piso");
+      };
 
     return (
         <ViewContainer>
-            <FormContainer>
+             <StepComponent 
+             pathBefore={"/datos-cliente-email"}
+             pathAfter={"apartamento-piso"}
+             current={3} prevDisabled={false} nextDisabled={!valid} />
+            <FormContainer
+                onSubmit={handleSubmit}
+            >
+                
                 <h3>Direccion del apartamento</h3>
                 <InputComponent
+                    required
                     label="Direccion del apartamento"
+                    ref={addressInput}
                     name="address"
+                    type="text"
+                    id="address"
                     value={address}
-                    onChange={setForm}
+                    onChange={(e) => handleInput("address", e.currentTarget.value)}
+                    onBlur={validateAddress}
                 />
-                <div className="w3-bar">
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={previous}
-                        text="Correo "
-                    />
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={next}
-                        text="Numero de pisos"
-                    />
-                </div>
             </FormContainer>
 
         </ViewContainer>

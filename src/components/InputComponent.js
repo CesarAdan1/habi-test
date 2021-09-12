@@ -1,18 +1,22 @@
 import React from 'react';
 
-const InputComponent = ({ htmlFor, label, message, type = 'text', ...otherProps }) => (
+const InputComponent = ({ checked, htmlFor, label, message, type = 'text', ...otherProps }) => (
   <div className="inp-cont">
     {type === "text" ? (
       <>
-        <label htmlFor={htmlFor}>{label}</label>
+        <label style={{ marginRight: "10px", display: "block" }} 
+        htmlFor={htmlFor}>{label}
         <input type={type} {...otherProps} />
         <span>{message}</span>
+        </label>
       </>
     ) : (
       <>
-        <label />
-        <input type={type} {...otherProps} />
+        <label style={{ marginRight: "10px", display: "block" }}>
+        <input type={type} checked={checked} {...otherProps} />
         {label}
+        </label>
+        <span>{message}</span>
       </>
     )}
   </div>
@@ -20,10 +24,10 @@ const InputComponent = ({ htmlFor, label, message, type = 'text', ...otherProps 
 
 export const Dropdown = ({ message, options, label, ...others }) => (
   <p>
-    <label>
+    <label style={{ marginRight: "10px", display: "block" }}>
       {label}
       <div className="select-wrapper">
-        <select className="w3-select" {...others}>
+        <select className="select" {...others}>
           {options.map(([value, name]) => (
             <option key={value} value={value}>
               {name}
@@ -32,7 +36,7 @@ export const Dropdown = ({ message, options, label, ...others }) => (
         </select>
       </div>
     </label>
-    <span>{message}</span>
+    <span style={{color: "red"}}>{message}</span>
   </p>
 );
 

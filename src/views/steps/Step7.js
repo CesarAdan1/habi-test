@@ -1,38 +1,63 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 import FormContainer from '../../containers/FormContainer';
 import ViewContainer from '../../containers/ViewContainer';
-import ButtonComponent from '../../components/ButtonComponent'
 import InputComponent, { Dropdown } from '../../components/InputComponent'
+import AppContext from '../../state/AppContext'
+import StepComponent from '../../components/StepComponent';
+import { useHistory } from 'react-router';
 
+export let storage = {
+   price: 1000000
+}
 
-const Step7 = ({setForm, formData, navigation}) => {
-    const { previous, next } = navigation;
-    const { price } = formData;
+const Step7 = () => {
+    const history = useHistory();
+    const [price, setPrice] = useState(storage.price);
+    const [valid, setValid] = useState(price);
+    const priceInput = useRef(null);
+
+    useEffect(() => {
+        setValid(price)
+    }, [price]);
+
+    const handleInput = (price, value) => {
+        if (price === "price") {
+          setPrice(value);
+        }
+        storage = { ...storage, [price]: value };
+      };
+
+      const handleSubmit = (e) => {
+        if (e) {
+          e.preventDefault();
+        }
+    
+        if (!valid) {
+          alert("Introduce un piso valido");
+          return;
+        }
+    
+        history.push("/fotos-apartamento");
+      };
 
     return (
         <ViewContainer>
-            <FormContainer>
-                <h3>En que piso se encuentra tu apartamento</h3>
-                <Dropdown
-                    label="Numero de Pisos"
+             <StepComponent 
+                pathBefore={"/apartamento-park"}
+                pathAfter={"fotos-apartamento"}
+                current={7} prevDisabled={false} nextDisabled={!valid} />
+            <FormContainer onSubmit={handleSubmit}>
+                <h3>Precio en que deseas venderlo?</h3>
+                <InputComponent
+                    required
+                    ref={priceInput}
+                    label="Precion en MN"
+                    type="number"
+                    id="price"
                     name="price"
                     value={price}
-                    onChange={setForm}
+                    onChange={(e) => handleInput("price", ...e.currentTarget.value)}
                 />
-                <div className="w3-bar">
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={previous}
-                        text="Parking"
-                    />
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={next}
-                        text="Foto"
-                    />
-                </div>
             </FormContainer>
 
         </ViewContainer>

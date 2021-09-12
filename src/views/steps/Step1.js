@@ -2,50 +2,63 @@ import React, { useContext, useRef, useState, useEffect } from 'react'
 import ViewContainer from '../../containers/ViewContainer'
 import FormContainer from '../../containers/FormContainer'
 import InputComponent from '../../components/InputComponent'
-import ButtonComponent from '../../components/ButtonComponent'
-import AppContext from '../../state/AppContext'
+import {useAppContext} from '../../state/AppContext'
 import { useHistory } from "react-router-dom";
 import StepComponent from '../../components/StepComponent'
 
-export const storage = {
+export let storage = {
     name: ""
 }
 
 export const validateName = (name) => name.length > 0;
+
+const Message = ({message}) => {
+    return (
+        <div>{message}</div>
+    )
+}
 
 const Step1 = () => {
     const history = useHistory();
     const completeNameInput = useRef(null);
     const [name, setName] = useState(storage.name);
     const [valid, setValid] = useState(Boolean(validateName(name)));
+    const [message, setMessage] = useState("")
+
+    const { stepper } = useAppContext();
+
+    useEffect(() => {
+        setValid(Boolean(validateName(name)))
+    }, [name, validateName]);
 
     const handleSubmit = (e) => {
         if (e) {
-          e.preventDefault();
+            e.preventDefault();
         }
-    
+
         if (!valid) {
-          alert("Completa los campos");
-          return;
+            setMessage({message: "Campo obligatorio"})
+            return;
         }
-    
+
         history.push("/datos-cliente-email");
-      };
+    };
 
-      const handleInput = (name, value) => {
+    const handleInput = (name, value) => {
         if (name === "name") {
-          setName(value);
+            setName(value);
         }
-        storage = { ...storage, [name]: value };
-      };
-
-      useEffect(() => {
-        setValid(Boolean(validateName(name) && validateEmail(email)));
-      }, [name, validateName]);
+        storage = { ...storage, [stepper.name]: value };
+    };
 
     return (
         <ViewContainer>
-            <StepComponent current={1} prevDisabled={true} nextDisabled={!valid} />
+            <StepComponent 
+            pathAfter={"datos-cliente-email"}
+            pathBefore={"/"}
+            current={1} prevDisabled={false} nextDisabled={!valid}
+             
+            />
             <FormContainer
                 onSubmit={handleSubmit}
             >
@@ -54,15 +67,16 @@ const Step1 = () => {
                     pattern="\.\+"
                     ref={completeNameInput}
                     label="Nombre y apellido"
-                    name="names"
+                    name="name"
                     id="name"
                     type="text"
                     value={name}
                     onChange={(e) => handleInput("name", e.currentTarget.value)}
+                    onBlur={validateName}
                 />
-                
-            </FormContainer>
 
+            </FormContainer>
+            <div style={{color: "red"}}>{message}</div>
         </ViewContainer>
     )
 }

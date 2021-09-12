@@ -1,36 +1,69 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 import FormContainer from '../../containers/FormContainer';
 import ViewContainer from '../../containers/ViewContainer';
-import ButtonComponent from '../../components/ButtonComponent'
-import InputComponent, { Dropdown } from '../../components/InputComponent'
+import InputComponent from '../../components/InputComponent'
+import AppContext from '../../state/AppContext'
+import StepComponent from '../../components/StepComponent';
+import { useHistory } from 'react-router';
+import { options } from '../../utils/helpers';
 
-const Step5 = ({setForm, formData, navigation}) => {
-    const { previous, next } = navigation;
-    const { services } = formData;
+export let storage = {
+    services: {
+        bbq: false,
+        salon: false,
+        parkPlay: false
+    }
+}
+
+const Step5 = () => {
+    const history = useHistory();
+    const [services, setServices] = useState(storage.services);
+    const [valid, setValid] = useState(Boolean(services));
+    const serviceInput = useRef(null);
+
+    useEffect(() => {
+        setValid(Boolean(services))
+    }, [services]);
+
+    const handleInput = (services, value) => {
+        if (services === "services") {
+            setServices(value);
+        }
+        storage = { ...storage, [services]: value };
+    };
+
+    const handleSubmit = (e) => {
+        if (e) {
+            e.preventDefault();
+        }
+
+        history.push("/apartamento-park");
+    };
 
     return (
         <ViewContainer>
-            <FormContainer>
-                <h3>En que piso se encuentra tu apartamento</h3>
-                <Dropdown
-                    label="Numero de Pisos"
-                    name="services"
-                    value={services}
-                    onChange={setForm}
-                />
-                <div className="w3-bar">
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={previous}
-                        text="Numero de pisos "
-                    />
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={next}
-                        text="Adicional 2"
-                    />
+            <StepComponent
+                pathBefore={"/apartamento-piso"}
+                pathAfter={"apartamento-park"}
+                current={5} prevDisabled={false} nextDisabled={!valid} />
+            <FormContainer onSubmit={handleSubmit}>
+
+                <h3>Tu apartamento cuenta con alguno de estos servicios?<small>(opcional</small></h3>
+                <div>
+                    {Object.entries(options).map(([value, name]) => (
+                        <InputComponent
+                            key={value}
+                            required={false}
+                            type="checkbox"
+                            ref={serviceInput}
+                            label={name}
+                            checked={options === value}
+                            id={value}
+                            name={value}
+                            value={value}
+                            onChange={(e) => handleInput("services", ...e.currentTarget.value)}
+                        />
+                    ))}
                 </div>
             </FormContainer>
 

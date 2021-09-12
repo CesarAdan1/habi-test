@@ -1,37 +1,65 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 import FormContainer from '../../containers/FormContainer';
 import ViewContainer from '../../containers/ViewContainer';
-import ButtonComponent from '../../components/ButtonComponent'
-import InputComponent, { Dropdown } from '../../components/InputComponent'
+import { Dropdown } from '../../components/InputComponent'
+import AppContext from '../../state/AppContext'
+import StepComponent from '../../components/StepComponent';
+import { useHistory } from 'react-router';
+import { floor } from '../../utils/helpers';
 
-const Step4 = ({setForm, formData, navigation}) => {
-    const { previous, next } = navigation;
-    const { floor } = formData;
+export let storage = {
+   piso: null
+}
+
+const Step4 = () => {
+    const history = useHistory();
+    const [piso, setPiso] = useState(storage.piso);
+    const [valid, setValid] = useState(piso);
+    const pisoInput = useRef(null);
+
+    useEffect(() => {
+        setValid(piso)
+    }, [piso]);
+
+    const handleInput = (piso, value) => {
+        if (piso === "piso") {
+          setPiso(value);
+        }
+        storage = { ...storage, [piso]: value };
+      };
+
+      const handleSubmit = (e) => {
+        if (e) {
+          e.preventDefault();
+        }
+    
+        if (!valid) {
+          alert("Introduce un piso valido");
+          return;
+        }
+    
+        history.push("/apartamento-servicios");
+      };
 
     return (
         <ViewContainer>
-            <FormContainer>
-                <h3>En que piso se encuentra tu apartamento</h3>
+             <StepComponent 
+                pathBefore={"/direccion-apartamento"}
+                pathAfter={"apartamento-servicios"}
+                current={4} prevDisabled={false} nextDisabled={!valid} />
+            <FormContainer onSubmit={handleSubmit}>
+            
+                <h3>Piso en el que se encuentra tu apartamento</h3>
                 <Dropdown
-                    label="Numero de Pisos"
-                    name="floor"
-                    value={floor}
-                    onChange={setForm}
+                    required
+                    ref={pisoInput}
+                    name="piso"
+                    id="piso"
+                    value={piso}
+                    onChange={(e) => handleInput("piso", e.currentTarget.value)}
+                    options={floor}
                 />
-                <div className="w3-bar">
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={previous}
-                        text="Direccion "
-                    />
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={next}
-                        text="Adicionales"
-                    />
-                </div>
+                
             </FormContainer>
 
         </ViewContainer>

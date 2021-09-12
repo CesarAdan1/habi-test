@@ -1,16 +1,14 @@
 import React from 'react'
 import Routes from './navigation/Routes'
 import { BrowserRouter as Route } from 'react-router-dom'
-import AppProvider from './state/AppContext'
-import './static/app.css'
+import {AppProvider} from './state/AppContext'
+import './static/styles.css'
 
 const App = () => {
     return (
-        <AppProvider value={{ isReviewMode: false }}> 
+        <AppProvider> 
             <Route>
-                <Routes>
-                    
-                </Routes>
+                <Routes />
             </Route>
         </AppProvider>
     )

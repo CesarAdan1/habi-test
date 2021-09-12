@@ -1,37 +1,60 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef, useState, useEffect } from 'react'
 import FormContainer from '../../containers/FormContainer';
 import ViewContainer from '../../containers/ViewContainer';
 import ButtonComponent from '../../components/ButtonComponent'
-import InputComponent, { Dropdown } from '../../components/InputComponent'
+import InputComponent from '../../components/InputComponent'
+import AppContext from '../../state/AppContext'
+import { useHistory } from 'react-router';
+import StepComponent from '../../components/StepComponent';
 
-const Step9 = ({setForm, formData, navigation}) => {
-    const { previous, next } = navigation;
-    const { elevator } = formData;
+
+export let storage = {
+    elevator: false
+  }
+
+const Step9 = () => {
+    const history = useHistory();
+    const [elevator, setElevator] = useState(storage.elevator);
+    const [valid, setValid] = useState(Boolean(elevator));
+    const elevatorInput = useRef(null);
+
+    useEffect(() => {
+        setValid(Boolean(elevator))
+    }, [elevator]);
+
+    const handleInput = (elevator, value) => {
+        if (elevator === "elevator") {
+          setElevator(value);
+        }
+        storage = { ...storage, [elevator]: value };
+      };
+
+      const handleSubmit = (e) => {
+        if (e) {
+          e.preventDefault();
+        }
+    
+        history.push("/resumen");
+      };
 
     return (
         <ViewContainer>
-            <FormContainer>
+             <StepComponent 
+                pathBefore={"/fotos-apartamento"}
+                pathAfter={"resumen"}
+                current={9} prevDisabled={false} nextDisabled={!valid} />
+            <FormContainer onSubmit={handleSubmit}>
                 <h3>Tu apartamento cuenta con elevador?</h3>
                 <InputComponent
-                    label="Cuenta con elevador"
+                    required
+                    type="checkbox"
+                    ref={elevatorInput}
+                    label="Elevador"
+                    id="elevator"
                     name="elevator"
                     value={elevator}
-                    onChange={setForm}
+                    onChange={(e) => handleInput("elevator", ...e.currentTarget.value)}
                 />
-                <div className="w3-bar">
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={previous}
-                        text="Foto"
-                    />
-                    <ButtonComponent
-                        className="w3-button w3-white w3-border w3-right"
-                        type="button"
-                        onClick={next}
-                        text="Completar"
-                    />
-                </div>
             </FormContainer>
 
         </ViewContainer>
