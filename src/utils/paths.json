@@ -1,39 +1,75 @@
 [
     {
-        "index": 1,
+        "index": 0,
         "component": "MainView",
         "pathDescription": "Vender",
         "path": "/"
     },
     {
-        "index": 2,
-        "component": "StepperView",
-        "pathDescription": "Datos del Cliente",
+        "index": 1,
+        "component": "Step1",
+        "pathDescription": "Nombre y apellidos",
         "path": "/datos-cliente"
     },
     {
+        "index": 2,
+        "component": "Step2",
+        "pathDescription": "Tu email",
+        "path": "/datos-cliente-email"
+    },
+    {
         "index": 3,
-        "component": "ApartmentView",
-        "pathDescription": "Datos del apartamento",
+        "component": "Step3",
+        "pathDescription": "Direccion del apartamento",
         "path": "/direccion-apartamento"
     },
     {
         "index": 4,
-        "component": "PrecioView",
-        "pathDescription": "Introduce el precio",
-        "path": "/apartamento-precio"
+        "component": "Step4",
+        "pathDescription": "En que numero de piso se encuentra tu departamento?",
+        "path": "/apartamento-piso"
     },
     {
         "index": 5,
-        "component": "ClienteView",
-        "pathDescription": "Fotos del apartamento",
-        "path": "/fotos-apartamento"
+        "component": "Step5",
+        "pathDescription": "Selecciona con que servicios cuenta tu departamento?",
+        "path": "/apartamento-servicios"
     },
     {
         "index": 6,
+        "component": "Step6",
+        "pathDescription": "Tiene lugar de estacionamiento?",
+        "path": "/apartamento-park"
+    },
+    {
+        "index": 7,
+        "component": "Step7",
+        "pathDescription": "Cuanto esperas recibir por tu apartamento?",
+        "path": "/apartamento-precio"
+    },
+    {
+        "index": 8,
+        "component": "Step8",
+        "pathDescription": "Sube una foto de tu apartamento",
+        "path": "/fotos-apartamento"
+    },
+    {
+        "index": 9,
+        "component": "Step9",
+        "pathDescription": "El apartamento cuenta con ascensor?",
+        "path": "/apartamento-elevator"
+    },
+    {
+        "index": 9,
         "component": "ResumeView",
         "pathDescription": "Resumen",
         "path": "/resumen"
+    },
+    {
+        "index": 10,
+        "component": "SubmitView",
+        "pathDescription": "Enviar",
+        "path": "/submit"
     }
 
 ]

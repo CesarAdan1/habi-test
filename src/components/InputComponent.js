@@ -1,22 +1,38 @@
 import React from 'react';
 
-const InputComponent = ({ label, type = 'text', ...otherProps }) => (
-  <p>
-    {type === 'text' ? (
-      <label>
-        {label}
-        <input className="w3-input" type={type} {...otherProps} />
-      </label>
+const InputComponent = ({ htmlFor, label, message, type = 'text', ...otherProps }) => (
+  <div className="inp-cont">
+    {type === "text" ? (
+      <>
+        <label htmlFor={htmlFor}>{label}</label>
+        <input type={type} {...otherProps} />
+        <span>{message}</span>
+      </>
     ) : (
-      <label>
-        <input
-          className={type === 'checkbox' ? 'w3-check' : 'w3-radio'}
-          type={type}
-          {...otherProps}
-        />
+      <>
+        <label />
+        <input type={type} {...otherProps} />
         {label}
-      </label>
+      </>
     )}
+  </div>
+);
+
+export const Dropdown = ({ message, options, label, ...others }) => (
+  <p>
+    <label>
+      {label}
+      <div className="select-wrapper">
+        <select className="w3-select" {...others}>
+          {options.map(([value, name]) => (
+            <option key={value} value={value}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </div>
+    </label>
+    <span>{message}</span>
   </p>
 );
 

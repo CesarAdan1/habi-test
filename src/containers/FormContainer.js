@@ -1,10 +1,15 @@
 import React from 'react'
 
-const FormContainer = () => {
+const FormContainer = (props) => {
     return (
-        <div>
-            
-        </div>
+        <form 
+            noValidate
+            autoComplete="off"
+            className="form"
+            onSubmit={props.onSubmit}
+        >
+            {props.children}
+        </form>
     )
 }
 

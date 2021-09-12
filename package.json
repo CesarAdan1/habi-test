@@ -23,6 +23,7 @@
     "file-loader": "^6.1.1",
     "file-selector": "^0.2.4",
     "fs": "0.0.1-security",
+    "hey-regex": "^1.0.0",
     "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
