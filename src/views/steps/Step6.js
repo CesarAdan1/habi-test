@@ -11,7 +11,6 @@ export let storage = {
     isCover: false
 }
 
-
 const Step6 = () => {
     const history = useHistory();
     const [park, setPark] = useState(storage.park);

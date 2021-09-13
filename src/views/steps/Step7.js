@@ -10,6 +10,8 @@ export let storage = {
    price: 1000000
 }
 
+const getFormattedPrice = (price) => `$${price.toFixed(2)}`;
+
 const Step7 = () => {
     const history = useHistory();
     const [price, setPrice] = useState(storage.price);
@@ -55,7 +57,7 @@ const Step7 = () => {
                     type="number"
                     id="price"
                     name="price"
-                    value={price}
+                    value={getFormattedPrice(price)}
                     onChange={(e) => handleInput("price", ...e.currentTarget.value)}
                 />
             </FormContainer>

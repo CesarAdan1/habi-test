@@ -51,6 +51,7 @@ const Step4 = () => {
             
                 <h3>Piso en el que se encuentra tu apartamento</h3>
                 <Dropdown
+                    key={floor}
                     required
                     ref={pisoInput}
                     name="piso"

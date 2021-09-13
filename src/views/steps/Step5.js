@@ -7,7 +7,7 @@ import StepComponent from '../../components/StepComponent';
 import { useHistory } from 'react-router';
 import { options } from '../../utils/helpers';
 
-export let storage = {
+export const storage = {
     services: {
         bbq: false,
         salon: false,
@@ -17,7 +17,7 @@ export let storage = {
 
 const Step5 = () => {
     const history = useHistory();
-    const [services, setServices] = useState(storage.services);
+    const [services, setServices] = useState(new Array(options.length).fill(false));
     const [valid, setValid] = useState(Boolean(services));
     const serviceInput = useRef(null);
 
@@ -25,11 +25,13 @@ const Step5 = () => {
         setValid(Boolean(services))
     }, [services]);
 
-    const handleInput = (services, value) => {
-        if (services === "services") {
-            setServices(value);
-        }
-        storage = { ...storage, [services]: value };
+    const handleInput = (position, value) => {
+        const updatedCheckedState = services.map((item, index) =>
+        index === position ? !item : item
+      );
+  
+      setServices(updatedCheckedState);
+        //storage = { ...storage, [services]: value };
     };
 
     const handleSubmit = (e) => {
@@ -48,25 +50,23 @@ const Step5 = () => {
                 current={5} prevDisabled={false} nextDisabled={!valid} />
             <FormContainer onSubmit={handleSubmit}>
 
-                <h3>Tu apartamento cuenta con alguno de estos servicios?<small>(opcional</small></h3>
+                <h3>Tu apartamento cuenta con alguno de estos servicios?<small>(opcional)</small></h3>
                 <div>
-                    {Object.entries(options).map(([value, name]) => (
+                    {options.map(({name, index}) => (
                         <InputComponent
-                            key={value}
                             required={false}
                             type="checkbox"
-                            ref={serviceInput}
+                            htmlFor={`custom-checkbox-${index}`}
                             label={name}
-                            checked={options === value}
-                            id={value}
-                            name={value}
-                            value={value}
-                            onChange={(e) => handleInput("services", ...e.currentTarget.value)}
+                            checked={setServices[index]}
+                            id={`custom-checkbox-${index}`}
+                            name={name}
+                            value={name}
+                            onChange={() => handleInput(index)}
                         />
                     ))}
                 </div>
             </FormContainer>
-
         </ViewContainer>
     )
 }

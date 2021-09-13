@@ -12,7 +12,7 @@ const InputComponent = ({ checked, htmlFor, label, message, type = 'text', ...ot
       </>
     ) : (
       <>
-        <label style={{ marginRight: "10px", display: "block" }}>
+        <label hetmlFor={htmlFor} style={{ marginRight: "10px", display: "block" }}>
         <input type={type} checked={checked} {...otherProps} />
         {label}
         </label>
@@ -28,8 +28,8 @@ export const Dropdown = ({ message, options, label, ...others }) => (
       {label}
       <div className="select-wrapper">
         <select className="select" {...others}>
-          {options.map(([value, name]) => (
-            <option key={value} value={value}>
+          {options.map(([value, name], id) => (
+            <option key={id} value={value}>
               {name}
             </option>
           ))}

@@ -52,8 +52,18 @@ export const floor = [
     ['50', 'Piso 50']
 ];
 
-export const options = {
-    BBQ: 'Zona BBQ',
-    SALON: 'Salon Comunal',
-    PARK: 'Parque de juegos'
-}
+export const options = [
+    {
+        name: "Zona BBQ",
+        index: 1,
+
+    },
+    {
+        name: "Salon Comunal",
+        index: 2
+    },
+    {
+        name: "Parque de juegos",
+        index: 3
+    }
+];

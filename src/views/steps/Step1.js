@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState, useEffect } from 'react'
 import ViewContainer from '../../containers/ViewContainer'
 import FormContainer from '../../containers/FormContainer'
 import InputComponent from '../../components/InputComponent'
-import {useAppContext} from '../../state/AppContext'
+import { useAppContext } from '../../state/AppContext'
 import { useHistory } from "react-router-dom";
 import StepComponent from '../../components/StepComponent'
 
@@ -20,6 +20,7 @@ const Message = ({message}) => {
 
 const Step1 = () => {
     const history = useHistory();
+
     const completeNameInput = useRef(null);
     const [name, setName] = useState(storage.name);
     const [valid, setValid] = useState(Boolean(validateName(name)));
@@ -73,6 +74,7 @@ const Step1 = () => {
                     value={name}
                     onChange={(e) => handleInput("name", e.currentTarget.value)}
                     onBlur={validateName}
+                    message={message}
                 />
 
             </FormContainer>
