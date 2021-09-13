@@ -71,6 +71,7 @@
     "html-loader": "^1.2.1",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.3.8",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "lint-staged": "^10.5.4",
     "mini-css-extract-plugin": "^0.8.2",
@@ -112,9 +113,32 @@
     ]
   },
   "jest": {
+    "verbose": true,
     "unmockedModulePathPatterns": [
-      "node_modules/react/",
-      "node_modules/enzyme/"
-    ]
+      "/node_modules/react",
+      "/node_modules/react-dom",
+      "/node_modules/react-addons-test-utils",
+      "/node_modules/fbjs"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!lodash-es/.*)",
+      "/build"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx"
+    ],
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    }
   }
 }

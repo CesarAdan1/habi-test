@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ViewContainer = (props) => {
+const ViewContainer = ({children}) => {
     return (
         <div className="display-center">
-            {props.children}
+            {children}
         </div>
     )
 }
