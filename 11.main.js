@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[11],{72:function(n,e,t){"use strict";t.r(e);var a=t(0),o=t.n(a);e.default=function(n){var e=n.navigation.go;return o.a.createElement("div",null,o.a.createElement("h3",null,"Thank you for submitting. We will be in touch"),"New Form -> ",o.a.createElement("button",{onClick:function(){return e("names")}},"New"))}}}]);
