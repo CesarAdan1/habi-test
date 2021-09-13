@@ -12,7 +12,7 @@ test('', () => {
 
     }
 
-    const component = render(<InputComponent />)
+    const component = render(<InputComponent  />)
     component.getByText('This is a test')
 })
 
